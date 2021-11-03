@@ -1,5 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Hat, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it { should have_many(:appointments) }
+  it { should have_many(:users).through(:appointments) }
+  it { should validate_presence_of(:brand) }
+  it { should validate_presence_of(:name) }
+  it { should validate_presence_of(:image_url) }
 end
