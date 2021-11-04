@@ -3,7 +3,7 @@ class AppointmentsController::Api::V1 < ApplicationController
 
   # GET /appointments
   def index
-    @appointments = Appointment.all
+    @appointments = current_user.appointments.all
 
     render json: @appointments
   end
@@ -15,10 +15,10 @@ class AppointmentsController::Api::V1 < ApplicationController
 
   # POST /appointments
   def create
-    @appointment = Appointment.new(appointment_params)
+    @appointment = current_user.appointments.create!(appointment_params)
 
     if @appointment.save
-      render json: @appointment, status: :created, location: @appointment
+      render json: @appointment, status: :created
     else
       render json: @appointment.errors, status: :unprocessable_entity
     end
